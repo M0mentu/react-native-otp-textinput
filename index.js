@@ -43,6 +43,9 @@ class OTPTextView extends Component {
 
     this.inputs = [];
   }
+   componentDidMount() {
+    setTimeout(this.inputs[0].focus, 0);
+  }
 
   basicValidation = (text) => {
     const validText = /^[0-9a-zA-Z]+$/;
