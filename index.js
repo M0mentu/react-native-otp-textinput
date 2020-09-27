@@ -72,7 +72,7 @@ CheckSwitchArabicDigits = digit => {
   onTextChange = (text, i) => {
     const { inputCellLength, inputCount, handleTextChange } = this.props;
     var newText=this.CheckSwitchArabicDigits(text)
-    if (text && !this.basicValidation(text)) {
+    if (newText && !this.basicValidation(newText)) {
       return;
     }
 
@@ -80,14 +80,14 @@ CheckSwitchArabicDigits = digit => {
       (prevState) => {
         let { otpText } = prevState;
 
-        otpText[i] = text;
+        otpText[i] = newText;
         return {
           otpText,
         };
       },
       () => {
         handleTextChange(this.state.otpText.join(""));
-        if (text.length === inputCellLength && i !== inputCount - 1) {
+        if (newText.length === inputCellLength && i !== inputCount - 1) {
           this.inputs[i + 1].focus();
         }
       }
