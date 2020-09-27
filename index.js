@@ -48,13 +48,30 @@ class OTPTextView extends Component {
   }
 
   basicValidation = (text) => {
-    const validText = /^[0-9a-zA-Z]+$/;
+    const validText = /^[0-9a-zA-Z٠-٩]+$/;
     return text.match(validText);
+  };
+
+CheckSwitchArabicDigits = digit => {
+    var NumberRegEx = /^[0-9]+$/;
+    if (digit.match(NumberRegEx)) {
+      return digit;
+    } else {
+      var theDigit = digit;
+      theDigit = theDigit
+        .replace(/[٠١٢٣٤٥٦٧٨٩]/g, function(d) {
+          return d.charCodeAt(0) - 1632;
+        })
+        .replace(/[۰۱۲۳۴۵۶۷۸۹]/g, function(d) {
+          return d.charCodeAt(0) - 1776;
+        });
+      return theDigit;
+    }
   };
 
   onTextChange = (text, i) => {
     const { inputCellLength, inputCount, handleTextChange } = this.props;
-
+    var newText=this.CheckSwitchArabicDigits(text)
     if (text && !this.basicValidation(text)) {
       return;
     }
